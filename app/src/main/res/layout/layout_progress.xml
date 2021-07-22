@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="lifecycle"
+            type="androidx.lifecycle.LifecycleOwner" />
+
+        <variable
+            name="isBusy"
+            type="androidx.lifecycle.LiveData&lt;Boolean>" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:isBusy="@{isBusy}"
+        app:lifecycle="@{lifecycle}"
+        tools:visibility="visible"
+        android:background="#80000000">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/pg_progress"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Loading"
+                app:layout_constraintBottom_toBottomOf="@+id/pg_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pg_progress"
+                app:layout_constraintTop_toTopOf="@+id/pg_progress" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

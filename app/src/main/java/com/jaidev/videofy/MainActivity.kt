@@ -1,11 +1,28 @@
 package com.jaidev.videofy
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.jaidev.videofy.base.BaseActivity
+import com.jaidev.videofy.base.BaseViewModel
+import com.jaidev.videofy.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+
+    override fun getVM(): BaseViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val navController =
+            (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(R.id.homeFragment),
+            fallbackOnNavigateUpListener = ::onSupportNavigateUp
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
+
 }
