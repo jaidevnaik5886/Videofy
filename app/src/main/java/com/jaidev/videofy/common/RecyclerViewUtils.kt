@@ -117,6 +117,7 @@ interface RecyclerViewCallback {
 
 interface ListItem {
     fun getType() = 0
+
 }
 
 //Extensions

@@ -18,6 +18,10 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.jaidev.videofy.ui.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment" >
+        <argument
+            android:name="videoData"
+            app:argType="com.jaidev.videofy.response.VideoData" />
+    </fragment>
 
 </navigation>

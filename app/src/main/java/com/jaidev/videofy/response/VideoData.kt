@@ -16,4 +16,4 @@ data class VideoData(
     val thumb: String,
     @SerializedName("title")
     val title: String
-): ListItem, Serializable
+) : ListItem, Serializable

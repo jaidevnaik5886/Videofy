@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    val detailRepository: DataRepository,
     val networkUtilities: NetworkUtilities
 ) :
     BaseViewModel() {
