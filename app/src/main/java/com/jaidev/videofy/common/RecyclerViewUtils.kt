@@ -123,6 +123,19 @@ interface ListItem {
 
 //Extensions
 
+fun <E : ListItem> RecyclerView.addDataSource(
+    dataSource: List<E>,
+    @LayoutRes layoutId: Int,
+    callback: RecyclerViewCallback?,
+    emptyTextRes: Int
+) {
+    if (adapter == null) {
+        layoutManager = LinearLayoutManager(context)
+        val adapter = LinearLayoutAdapter<E>(layoutId, dataSource, callback, emptyTextRes)
+        setAdapter(adapter)
+    }
+}
+
 fun <E : ListItem> RecyclerView.addOrUpdateDataSource(
     dataSource: List<E>,
     @LayoutRes layoutId: Int,

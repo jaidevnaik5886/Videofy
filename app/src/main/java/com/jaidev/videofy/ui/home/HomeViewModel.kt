@@ -6,21 +6,21 @@ import com.jaidev.videofy.bindings.VideoPlayBackCallback
 import com.jaidev.videofy.network.data.DataRepository
 import com.jaidev.videofy.response.VideoData
 import com.jaidev.videofy.utils.BaseEvent
-import com.jaidev.videofy.utils.NetworkUtilities
+import com.jaidev.videofy.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     val detailRepository: DataRepository,
-    val networkUtilities: NetworkUtilities
+    val networkUtils: NetworkUtils
 ) :
     BaseViewModel() {
 
     val video = MutableLiveData<List<VideoData>>()
 
     init {
-        if (networkUtilities.isConnected()) {
+        if (networkUtils.isConnected()) {
             fetchVideos()
         }
     }

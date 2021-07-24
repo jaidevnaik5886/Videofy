@@ -11,26 +11,24 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.jaidev.videofy.common.ListItem
 import com.jaidev.videofy.common.RecyclerViewCallback
-import java.text.FieldPosition
 
-@BindingAdapter("video_url", "on_state_change")
-fun PlayerView.loadVideo(url: String?, stateCallback: VideoPlayBackCallback) {
+@BindingAdapter("video_url", "on_state_change", "volume")
+fun PlayerView.loadVideo(url: String?, stateCallback: VideoPlayBackCallback, volume: Float) {
     if (url == null) return
-    val player = ExoPlayerFactory.newSimpleInstance(
+    val simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(
         DefaultRenderersFactory(context), DefaultTrackSelector(),
         DefaultLoadControl()
     )
-    player.playWhenReady = true
-    player.volume = 0f
-    player.repeatMode = Player.REPEAT_MODE_ALL
+    simpleExoPlayer!!.playWhenReady = true
+    simpleExoPlayer.volume = volume
+    simpleExoPlayer.repeatMode = Player.REPEAT_MODE_ALL
     setKeepContentOnPlayerReset(true)
-    this.useController = false
     val mediaSource = ExtractorMediaSource.Factory(
         DefaultHttpDataSourceFactory("Demo")
     ).createMediaSource(Uri.parse(url))
 
-    player.prepare(mediaSource)
-    this.player = player
+    simpleExoPlayer.prepare(mediaSource)
+    this.player = simpleExoPlayer
     this.player!!.addListener(object : Player.EventListener {
         override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
 
@@ -65,22 +63,26 @@ fun PlayerView.loadVideo(url: String?, stateCallback: VideoPlayBackCallback) {
         }
 
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-            if (playbackState == Player.STATE_BUFFERING) stateCallback.onVideoBuffering(player) // Buffering.. set progress bar visible here
+            if (playbackState == Player.STATE_BUFFERING) stateCallback.onVideoBuffering(
+                simpleExoPlayer
+            ) // Buffering.. set progress bar visible here
             if (playbackState == Player.STATE_READY) {
                 // [PlayerView] has fetched the video duration so this is the block to hide the buffering progress bar
-                stateCallback.onVideoDurationRetrieved(this@loadVideo.player.duration, player)
+                stateCallback.onVideoDurationRetrieved(
+                    this@loadVideo.player.duration,
+                    simpleExoPlayer
+                )
             }
-            if (playbackState == Player.STATE_READY && player.playWhenReady) {
+            if (playbackState == Player.STATE_READY && simpleExoPlayer.playWhenReady) {
                 // [PlayerView] has started playing/resumed the video
-                stateCallback.onStartedPlaying(player)
+                stateCallback.onStartedPlaying(simpleExoPlayer)
             }
         }
     })
 }
 
 
-
-interface VideoPlayBackCallback : RecyclerViewCallback{
+interface VideoPlayBackCallback : RecyclerViewCallback {
 
     fun onItemSelectedClick(item: ListItem, position: Int)
 

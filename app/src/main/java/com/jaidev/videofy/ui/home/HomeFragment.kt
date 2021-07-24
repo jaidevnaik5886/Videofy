@@ -10,12 +10,13 @@ import com.jaidev.videofy.base.BaseFragment
 import com.jaidev.videofy.base.BaseViewModel
 import com.jaidev.videofy.bindings.VideoPlayBackCallback
 import com.jaidev.videofy.common.ListItem
-import com.jaidev.videofy.common.addOrUpdateDataSource
+import com.jaidev.videofy.common.addDataSource
 import com.jaidev.videofy.databinding.HomeFragmentBinding
 import com.jaidev.videofy.databinding.ListItemVideoBinding
 import com.jaidev.videofy.response.VideoData
 import com.jaidev.videofy.utils.BaseEvent
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R.string.home) {
@@ -28,7 +29,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R
         binding.handler = this
         binding.vm = model
         model.video.observe(viewLifecycleOwner, {
-            binding.rvVideoList.addOrUpdateDataSource(
+            binding.rvVideoList.addDataSource(
                 it ?: emptyList(),
                 R.layout.list_item_video,
                 object : VideoPlayBackCallback {
@@ -69,15 +70,15 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R
 
 
     private fun navigate(videoData: VideoData, callback: VideoPlayBackCallback, position: Int) {
-        val binding = ListItemVideoBinding.inflate(LayoutInflater.from(context))
-        binding.model = videoData
-        binding.callback = callback
-        binding.position = position
-        binding.executePendingBindings()
+        val videoBinding = ListItemVideoBinding.inflate(LayoutInflater.from(context))
+        videoBinding.model = videoData
+        videoBinding.callback = callback
+        videoBinding.position = position
+        videoBinding.executePendingBindings()
         val extras = FragmentNavigatorExtras(
-            binding.itemVideoExoplayer to binding.itemVideoExoplayer.transitionName,
-            binding.txtTitle to binding.txtTitle.transitionName,
-            binding.txtSubTitle to binding.txtSubTitle.transitionName,
+            videoBinding.itemVideoExoplayer to videoBinding.itemVideoExoplayer.transitionName,
+            videoBinding.txtTitle to videoBinding.txtTitle.transitionName,
+            videoBinding.txtSubTitle to videoBinding.txtSubTitle.transitionName,
         )
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToDetailFragment(videoData, position), extras

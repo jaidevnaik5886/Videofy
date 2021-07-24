@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class NetworkUtilities @Inject constructor(@ApplicationContext val applicationContext: Context) :
+class NetworkUtils @Inject constructor(@ApplicationContext val applicationContext: Context) :
     NetworkConnectivity {
 
     override fun isConnected(): Boolean {

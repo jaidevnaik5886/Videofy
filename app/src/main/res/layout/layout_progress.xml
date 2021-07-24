@@ -22,6 +22,7 @@
         android:visibility="gone"
         app:isBusy="@{isBusy}"
         app:lifecycle="@{lifecycle}"
+        android:clickable="true"
         tools:visibility="visible"
         android:background="#80000000">
 

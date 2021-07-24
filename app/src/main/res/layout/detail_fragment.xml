@@ -28,6 +28,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <com.google.android.exoplayer2.ui.PlayerView
@@ -38,6 +39,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:resize_mode="fill"
+            app:volume="@{1}"
+            app:use_controller="true"
+            app:on_state_change="@{callback}"
+            app:video_url="@{videoData.sources[0]}"
             />
 
         <TextView
@@ -49,6 +54,8 @@
             android:layout_marginStart="@dimen/marginHalf"
             android:layout_marginEnd="@dimen/marginHalf"
             android:text="@{videoData.title}"
+            android:textColor="@color/defaultTextColor"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_video_exoplayer" />
@@ -59,6 +66,8 @@
             android:layout_height="wrap_content"
             tools:text="TextView"
             android:text="@{videoData.subtitle}"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/txt_title"
             app:layout_constraintStart_toStartOf="@+id/txt_title"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
@@ -68,6 +77,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="TextView"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
             android:text="@{videoData.description}"
             android:layout_marginTop="@dimen/marginDouble"
             app:layout_constraintEnd_toEndOf="@+id/txt_subtitle"

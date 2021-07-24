@@ -44,8 +44,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:on_state_change="@{callback}"
                 app:resize_mode="fill"
+                app:volume="@{0}"
+                app:use_controller="false"
+                app:on_state_change="@{callback}"
                 app:video_url="@{model.sources[0]}" />
 
             <TextView

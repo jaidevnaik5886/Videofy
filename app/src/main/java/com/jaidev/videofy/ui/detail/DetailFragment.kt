@@ -32,7 +32,7 @@ class DetailFragment : BaseFragment<DetailFragmentBinding>(R.layout.detail_fragm
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         ViewCompat.setTransitionName(binding.itemVideoExoplayer, getString(R.string.video_transition) + args.position)
         ViewCompat.setTransitionName(binding.txtTitle, getString(R.string.title_transition) +args.position)
-        ViewCompat.setTransitionName(binding.txtTitle, getString(R.string.subtitle_transition) +args.position)
+        ViewCompat.setTransitionName(binding.txtSubtitle, getString(R.string.subtitle_transition) +args.position)
     }
 
     override fun onItemSelectedClick(item: ListItem, position: Int) {
@@ -53,5 +53,10 @@ class DetailFragment : BaseFragment<DetailFragmentBinding>(R.layout.detail_fragm
 
     override fun onFinishedPlaying(player: Player) {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.itemVideoExoplayer.player.stop()
     }
 }
