@@ -17,6 +17,10 @@
             type="com.jaidev.videofy.ui.detail.DetailViewModel" />
 
         <variable
+            name="videoData"
+            type="com.jaidev.videofy.response.VideoData" />
+
+        <variable
             name="callback"
             type="com.jaidev.videofy.bindings.VideoPlayBackCallback" />
 
@@ -44,6 +48,7 @@
             tools:text="TextView"
             android:layout_marginStart="@dimen/marginHalf"
             android:layout_marginEnd="@dimen/marginHalf"
+            android:text="@{videoData.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_video_exoplayer" />
@@ -53,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="TextView"
+            android:text="@{videoData.subtitle}"
             app:layout_constraintEnd_toEndOf="@+id/txt_title"
             app:layout_constraintStart_toStartOf="@+id/txt_title"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
@@ -62,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="TextView"
+            android:text="@{videoData.description}"
             android:layout_marginTop="@dimen/marginDouble"
             app:layout_constraintEnd_toEndOf="@+id/txt_subtitle"
             app:layout_constraintStart_toStartOf="@+id/txt_subtitle"

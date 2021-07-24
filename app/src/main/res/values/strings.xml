@@ -3,4 +3,7 @@
     <string name="no_internet_available">No Internet Available</string>
     <string name="no_data_available">No data available</string>
     <string name="home">Home</string>
+    <string name="video_transition">video</string>
+    <string name="title_transition">title</string>
+    <string name="subtitle_transition">subtile</string>
 </resources>

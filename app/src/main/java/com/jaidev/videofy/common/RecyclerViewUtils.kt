@@ -75,6 +75,7 @@ class LinearLayoutAdapter<E : ListItem>(
                     holder.binding.setVariable(BR.callback, it)
                 }
                 holder.binding.setVariable(BR.model, dataSource[position])
+                holder.binding.setVariable(BR.position, position)
                 holder.binding.executePendingBindings()
             }
             is EmptyVH -> {

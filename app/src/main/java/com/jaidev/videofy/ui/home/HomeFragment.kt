@@ -14,6 +14,7 @@ import com.jaidev.videofy.common.addOrUpdateDataSource
 import com.jaidev.videofy.databinding.HomeFragmentBinding
 import com.jaidev.videofy.databinding.ListItemVideoBinding
 import com.jaidev.videofy.response.VideoData
+import com.jaidev.videofy.utils.BaseEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,15 +27,14 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R
     override fun attachBinding() {
         binding.handler = this
         binding.vm = model
-        postponeEnterTransition()
         model.video.observe(viewLifecycleOwner, {
             binding.rvVideoList.addOrUpdateDataSource(
                 it ?: emptyList(),
                 R.layout.list_item_video,
                 object : VideoPlayBackCallback {
 
-                    override fun onItemSelectedClick(item: ListItem) {
-                        navigate(item as VideoData,this)
+                    override fun onItemSelectedClick(item: ListItem, position: Int) {
+                        model.onVideoItemSelected(this, item as VideoData, position)
                     }
 
                     override fun onVideoDurationRetrieved(duration: Long, player: Player) {
@@ -56,19 +56,31 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R
                 R.string.no_data_available
             )
         })
-
     }
 
-    private fun navigate(videoData: VideoData, callback: VideoPlayBackCallback) {
+    override fun handleEvent(event: BaseEvent) {
+        super.handleEvent(event)
+        when (event) {
+            is NavToDetails -> {
+                navigate(event.videoData, event.callback, event.position)
+            }
+        }
+    }
+
+
+    private fun navigate(videoData: VideoData, callback: VideoPlayBackCallback, position: Int) {
         val binding = ListItemVideoBinding.inflate(LayoutInflater.from(context))
         binding.model = videoData
         binding.callback = callback
+        binding.position = position
         binding.executePendingBindings()
         val extras = FragmentNavigatorExtras(
             binding.itemVideoExoplayer to binding.itemVideoExoplayer.transitionName,
+            binding.txtTitle to binding.txtTitle.transitionName,
+            binding.txtSubTitle to binding.txtSubTitle.transitionName,
         )
         findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToDetailFragment(videoData), extras
+            HomeFragmentDirections.actionHomeFragmentToDetailFragment(videoData, position), extras
         )
     }
 

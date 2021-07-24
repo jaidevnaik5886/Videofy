@@ -2,6 +2,7 @@ package com.jaidev.videofy.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import com.jaidev.videofy.base.BaseViewModel
+import com.jaidev.videofy.bindings.VideoPlayBackCallback
 import com.jaidev.videofy.network.data.DataRepository
 import com.jaidev.videofy.response.VideoData
 import com.jaidev.videofy.utils.BaseEvent
@@ -31,10 +32,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onVideoItemSelected(videoData: VideoData) {
-        sendEvent(NavToDetails())
+    fun onVideoItemSelected(callback: VideoPlayBackCallback, videoData: VideoData, position: Int) {
+        sendEvent(NavToDetails(callback, videoData, position))
     }
 
 }
 
-class NavToDetails() : BaseEvent()
+class NavToDetails(var callback: VideoPlayBackCallback, var videoData: VideoData, var position: Int) : BaseEvent()

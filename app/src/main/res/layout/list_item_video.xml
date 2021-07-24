@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,6 +12,10 @@
         <variable
             name="callback"
             type="com.jaidev.videofy.bindings.VideoPlayBackCallback" />
+
+        <variable
+            name="position"
+            type="Integer"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -24,9 +29,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_header"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:onClick="@{() -> callback.onItemSelectedClick(model)}"
-
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> callback.onItemSelectedClick(model, position)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,9 +39,8 @@
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/item_video_exoplayer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:transitionName="@{model.toString()}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="200dp"
+                android:transitionName="@{@string/video_transition + position}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -44,6 +48,36 @@
                 app:resize_mode="fill"
                 app:video_url="@{model.sources[0]}" />
 
+            <TextView
+                android:id="@+id/txt_title"
+                tools:text="Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginHalf"
+                android:layout_marginTop="@dimen/marginHalf"
+                android:layout_marginEnd="@dimen/marginHalf"
+                android:textSize="16sp"
+                android:text="@{model.title}"
+                android:transitionName="@{@string/title_transition + position}"
+                android:textColor="@color/defaultTextColor"
+                app:layout_constraintEnd_toEndOf="@+id/item_video_exoplayer"
+                app:layout_constraintStart_toStartOf="@+id/item_video_exoplayer"
+                app:layout_constraintTop_toBottomOf="@+id/item_video_exoplayer" />
+
+            <TextView
+                android:id="@+id/txt_sub_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginHalf"
+                android:textSize="14sp"
+                tools:text="Sub Title"
+                android:text="@{model.subtitle}"
+                android:transitionName="@{@string/subtitle_transition + position}"
+                android:textColor="@color/secondaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title"
+                app:layout_constraintStart_toStartOf="@+id/txt_title"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import com.jaidev.videofy.common.ListItem
 import com.jaidev.videofy.common.RecyclerViewCallback
+import java.text.FieldPosition
 
 @BindingAdapter("video_url", "on_state_change")
 fun PlayerView.loadVideo(url: String?, stateCallback: VideoPlayBackCallback) {
@@ -81,7 +82,7 @@ fun PlayerView.loadVideo(url: String?, stateCallback: VideoPlayBackCallback) {
 
 interface VideoPlayBackCallback : RecyclerViewCallback{
 
-    fun onItemSelectedClick(item: ListItem)
+    fun onItemSelectedClick(item: ListItem, position: Int)
 
     fun onVideoDurationRetrieved(duration: Long, player: Player)
 
