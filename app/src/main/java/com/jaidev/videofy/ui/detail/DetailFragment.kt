@@ -12,7 +12,6 @@ import com.jaidev.videofy.bindings.VideoPlayBackCallback
 import com.jaidev.videofy.common.ListItem
 import com.jaidev.videofy.databinding.DetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.FieldPosition
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<DetailFragmentBinding>(R.layout.detail_fragment),
@@ -30,9 +29,18 @@ class DetailFragment : BaseFragment<DetailFragmentBinding>(R.layout.detail_fragm
         binding.vm = model
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        ViewCompat.setTransitionName(binding.itemVideoExoplayer, getString(R.string.video_transition) + args.position)
-        ViewCompat.setTransitionName(binding.txtTitle, getString(R.string.title_transition) +args.position)
-        ViewCompat.setTransitionName(binding.txtSubtitle, getString(R.string.subtitle_transition) +args.position)
+        ViewCompat.setTransitionName(
+            binding.itemVideoExoplayer,
+            getString(R.string.video_transition) + args.position
+        )
+        ViewCompat.setTransitionName(
+            binding.txtTitle,
+            getString(R.string.title_transition) + args.position
+        )
+        ViewCompat.setTransitionName(
+            binding.txtSubtitle,
+            getString(R.string.subtitle_transition) + args.position
+        )
     }
 
     override fun onItemSelectedClick(item: ListItem, position: Int) {

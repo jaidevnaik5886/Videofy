@@ -48,7 +48,7 @@
                 app:resize_mode="fill"
                 app:use_controller="false"
                 app:video_url="@{model.sources[0]}"
-                app:volume="@{0ō}" />
+                app:volume="@{0}" />
 
             <TextView
                 android:id="@+id/txt_title"
