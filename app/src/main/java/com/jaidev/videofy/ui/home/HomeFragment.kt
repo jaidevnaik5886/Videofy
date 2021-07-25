@@ -68,7 +68,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(R.layout.home_fragment, R
         }
     }
 
-
     private fun navigate(videoData: VideoData, callback: VideoPlayBackCallback, position: Int) {
         val videoBinding = ListItemVideoBinding.inflate(LayoutInflater.from(context))
         videoBinding.model = videoData
